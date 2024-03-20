@@ -50,8 +50,13 @@ class ClubsModel {
         $id = $this->db->real_escape_string($id);
         $sql = "SELECT * FROM club WHERE id = '$id'";
         $result = $this->db->query($sql);
-        return $result->fetch_assoc();
+        if ($result && $result->num_rows > 0) {
+            return $result->fetch_assoc();
+        } else {
+            return array();
+        }
     }
+    
 
     
     

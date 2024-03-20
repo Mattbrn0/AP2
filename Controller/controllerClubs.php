@@ -47,5 +47,6 @@ class ClubsController {
         return $model->getClubById($id); 
     }
     
+    
 }
 ?>

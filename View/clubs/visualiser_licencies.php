@@ -8,8 +8,8 @@ if(isset($_GET['id'])) {
     $id = $_GET['id'];
     }
 
-$clubs= $controller->getClubById($id);
-$designation = $controller->getDesignation($id); 
+$clubs = [$controller->getClubById($id)]; 
+$designation = $controller->getDesignation($id);
 ?>
 
 
