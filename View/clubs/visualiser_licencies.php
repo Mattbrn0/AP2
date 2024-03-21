@@ -10,6 +10,7 @@ if(isset($_GET['id'])) {
 
 $clubs = [$controller->getClubById($id)]; 
 $designation = $controller->getDesignation($id);
+
 ?>
 
 
@@ -44,6 +45,7 @@ $designation = $controller->getDesignation($id);
                         <td><?php echo $club['adresse_courrier'] ."<br>" . $club['adr_ville_courrier'] . "<br>" . $club['adr_cp_courrier'];?></td>
                         <td><?php echo $club['mail_siege'] . "<br>" . $club['tel_siege']?></td>
                         <td><?php echo $club['numero_prefecture']; ?></td>
+                        <td><?php echo $nombreLicencies; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

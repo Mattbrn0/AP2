@@ -46,7 +46,7 @@ class ClubsController {
         $model = new ClubsModel();
         return $model->getClubById($id); 
     }
-    
+
     
 }
 ?>

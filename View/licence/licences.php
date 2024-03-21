@@ -18,11 +18,11 @@ require_once (realpath(dirname(__FILE__) . '/../assets/header.php'));
             <div class="col-12 text-center">
                 <h2>Que souhaitez-vous faire ?</h2>
                 <div class="mt-4">
-                    <button onclick="loadContent('creation_licence.php')" class="btn btn-primary me-3">Créer une licence</button>
-                    <button onclick="loadContent('visualiser_licence.php')" class="btn btn-secondary">Visualiser les licences</button>
-                </div>
+                    <button onclick="loadContent('creation_licence.php')" class="btn btn-primary me-3">Création nouveau licencié</button>
+                    <button onclick="loadContent('licences_visualisation.php')" class="btn btn-secondary">Visualiser les licenciés</button>
+                <br><br>
+                    <button onclick="loadContent('mutation_inter_licence.php')" class="btn btn-warning">Mutation Inter Comités</button>
                 <div id="content" class="mt-5">
-                    <!-- Contenu chargé dynamiquement -->
                 </div>
             </div>
         </div>
@@ -39,4 +39,3 @@ require_once (realpath(dirname(__FILE__) . '/../assets/header.php'));
     </script>
 </body>
 </html>
-
