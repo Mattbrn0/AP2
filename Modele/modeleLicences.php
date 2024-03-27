@@ -20,11 +20,11 @@ class LicencesModel {
         return $result;
     }
 
-    public function changerClubLicence($numLicencie, $club) {
+    public function changerClubLicence($numLicencie, $numeroaffiliation) {
         $numLicencie = $this->db->real_escape_string($numLicencie);
-        $club = $this->db->real_escape_string($club);
+        $numeroaffiliation = $this->db->real_escape_string($numeroaffiliation);
 
-        $sql = "UPDATE licencie SET club = '$club' WHERE numLicencie = '$numLicencie'";
+        $sql = "UPDATE licencie SET numeroaffiliation = '$numeroaffiliation' WHERE numLicencie = '$numLicencie'";
 
         $result = $this->db->query($sql);
 

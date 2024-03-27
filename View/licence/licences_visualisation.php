@@ -37,6 +37,8 @@ $licences = $controller->getLicencie();
                         <td><?php echo $licence['prenomlicencie']; ?></td>
                         <td> <!-- Colonne pour le bouton "Modifier" -->
                          <button onclick="loadContent('uniLicencie.php?id=<?php echo $licence['numlicencie']; ?>')" class="btn btn-primary">Modifier</button> 
+                         <!-- Bouton pour génerer un QR code -->
+                            <button onclick="loadContent('qrCode.php?id=<?php echo $licence['numlicencie']; ?>')" class="btn btn-primary">QR Code</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>

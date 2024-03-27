@@ -78,9 +78,8 @@ if(isset($_GET['id'])) {
             </div>
             <div class="mb-3">
                 <label for="LicenceCM" class="form-label">Validité CM</label>
-                <input type="date" class="form-control" id="LicenceCM" name="LicenceCM" value="<?php echo isset($licencie['validite_CM']) ? $licencie['validite_CM'] : ''; ?>">
+                <input type="date" class="form-control" id="LicenceCM" name="LicenceCM" value="<?php echo $licencie['validite_CM']; ?>">
             </div>
-
             <div class="mb-3">
                 <label for="AnneeReprise" class="form-label">Année de reprise</label>
                 <input type="text" class="form-control" id="AnneeReprise" name="AnneeReprise" value="<?php echo $licencie['annee_reprise']; ?>">
@@ -96,7 +95,7 @@ if(isset($_GET['id'])) {
                     $clubs = $controller->getClubs();
                     while($club = $clubs->fetch_assoc()) {
                     ?>
-                    <option value="<?php echo $club['designationclub']; ?>" <?php if($licencie['designationclub'] == $club['designationclub']) { echo 'selected'; } ?>><?php echo $club['designationclub']; ?></option>
+                    <option value="<?php echo $club['numeroaffiliation']; ?>" <?php if($licencie['numeroaffiliation'] == $club['numeroaffiliation']) { echo 'selected'; } ?>><?php echo $club['designationclub']; ?></option>
                     <?php } ?>
                 </select>
             </div>
