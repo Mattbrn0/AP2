@@ -18,6 +18,8 @@ require_once '../assets/header.php';
                 <div class="mt-4">
                     <button onclick="loadContent('creation_concours.php')" class="btn btn-primary me-3">Créer un concours</button>
                     <button onclick="loadContent('visualiser_concours.php')" class="btn btn-secondary">Visualiser les concours</button>
+                    <br><br>
+                    <button onclick="loadContent('resultats_concours.php')" class="btn btn-warning">Résultat des concours</button>
                 </div>
                 <div id="content" class="mt-5">
                     <!-- Contenu chargé dynamiquement -->

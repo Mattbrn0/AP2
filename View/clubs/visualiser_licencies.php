@@ -1,4 +1,5 @@
 <?php
+require_once (realpath(dirname(__FILE__) . '/../assets/header.php'));
 
 require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerClubs.php'));
 
@@ -10,6 +11,8 @@ if(isset($_GET['id'])) {
 
 $clubs = [$controller->getClubById($id)]; 
 $designation = $controller->getDesignation($id);
+
+$nombreLicencies = $controller->getNombreLicencies($id);
 
 ?>
 
@@ -40,7 +43,7 @@ $designation = $controller->getDesignation($id);
             <tbody>
                 <?php foreach ($clubs as $club) : ?>
                     <tr>
-                        <td><?php echo $club['annee_filiation']; ?></td>
+                        <td><?php echo $club['annee_affiliation']; ?></td>
                         <td><?php echo $club['adresse_siege'] . "<br>" . $club['adr_ville_siege'] . "<br>" . $club['adr_cp_siege'];?></td>
                         <td><?php echo $club['adresse_courrier'] ."<br>" . $club['adr_ville_courrier'] . "<br>" . $club['adr_cp_courrier'];?></td>
                         <td><?php echo $club['mail_siege'] . "<br>" . $club['tel_siege']?></td>

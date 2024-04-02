@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </select>
                 </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary w-100 mt-3">Valider</button>
+                    <button type="submit" class="btn btn-primary">Valider</button>
                 </div>
             </div>
         </form>

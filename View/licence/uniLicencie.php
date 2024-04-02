@@ -3,10 +3,9 @@ require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerLicences
 
 // Vérifie si l'ID du licencié est présent dans les données GET
 if(isset($_GET['id'])) {
-    // Crée une instance du contrôleur LicencesController
+
     $controller = new LicencesController();
 
-    // Récupère les informations du licencié
     $licencie = $controller->getLicencieById($_GET['id']);
 
     if($licencie) {

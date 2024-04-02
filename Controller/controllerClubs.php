@@ -24,7 +24,7 @@ class ClubsController {
             );
 
             if ($result) {
-                header("Location: ../view/assets/page_success.php");
+                header("Location: ../view/page_success.php");
                 exit();
             } else {
                 echo "Erreur lors de l'insertion : " . $model->db->error;
@@ -37,16 +37,22 @@ class ClubsController {
         return $model->getClubs();
     }
 
-    public function getDesignation($id) {
+    public function getNombreLicencies($id) {
         $model = new ClubsModel();
-        return $model->getDesignation($id);
+        return $model->getNombreLicencies($id);
     }
+
 
     public function getClubById($id) {
         $model = new ClubsModel();
-        return $model->getClubById($id); 
+        return $model->getClubById($id);
     }
 
+    public function getDesignation($id) {
+        $model = new ClubsModel();
+        $club = $model->getClubById($id);
+        return $club['designationclub'];
+    }
     
 }
 ?>

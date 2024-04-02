@@ -31,5 +31,12 @@ class ConcoursController {
         $model = new ConcoursModel();
         return $model->getConcours();
     }
+
+    public function getConcoursById($id) {
+        $model = new ConcoursModel();
+        $result = $model->getConcoursById($id);
+
+        return $result;
+    }
 }
 ?>

@@ -29,6 +29,7 @@ $concours = $controller->getConcours();
                     <th scope="col">Niveau</th>
                     <th scope="col">Nature</th>
                     <th scope="col">Catégorie</th>
+                    <th scope="col">Modification</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +41,7 @@ $concours = $controller->getConcours();
                         <td><?php echo $concour['niveau']; ?></td>
                         <td><?php echo $concour['nature']; ?></td>
                         <td><?php echo $concour['categorie']; ?></td>
+                        <td><button onclick="loadContent('modifier_concours.php?id=<?php echo $concour['id']; ?>')" class="btn btn-primary">Modifier</button></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

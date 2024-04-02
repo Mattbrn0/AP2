@@ -30,5 +30,18 @@ class ConcoursModel {
         $result = $this->db->query($sql);
         return $result;
     }
+
+    public function getConcoursById($id) {
+        $id = $this->db->real_escape_string($id);
+
+        $sql = "SELECT * FROM concours WHERE id = '$id'";
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        } else {
+            return false;
+        }
+    }
 }
 ?>
