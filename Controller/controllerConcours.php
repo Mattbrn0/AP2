@@ -27,6 +27,31 @@ class ConcoursController {
         }
     }
 
+    public function modifierConcours($data) {
+        $model = new ConcoursModel();
+    
+        $id = $data['id'];
+        $date = $data['date'];
+        $club = $data['club'];
+        $grille_points = $data['grille_points'];
+        $nature = $data['nature'];
+        $niveau = $data['niveau'];
+        $categorie = $data['categorie'];        
+    
+        $result = $model->modifierConcours(
+            $id,
+            $date,
+            $club,
+            $grille_points,
+            $nature,
+            $niveau,
+            $categorie,
+           
+        );
+    
+        return $result;
+    }
+
     public function getConcours() {
         $model = new ConcoursModel();
         return $model->getConcours();

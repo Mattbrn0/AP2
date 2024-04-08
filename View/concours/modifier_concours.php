@@ -1,79 +1,93 @@
 <?php
-require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerConcours.php'));
+require_once(realpath(dirname(__FILE__) . '/../../Controller/controllerConcours.php'));
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $controller = new ConcoursController();
-    $controller->modifierConcours();
-}
-
-if(isset($_GET['id'])) {
-
+// Vérifie si l'ID du concours est spécifié dans l'URL
+if (isset($_GET['id'])) {
     $controller = new ConcoursController();
 
+    // Récupère les détails du concours à modifier
     $concoursModif = $controller->getConcoursById($_GET['id']);
 
-    if($concoursModif) {
-?>
+    if ($concoursModif) {
+        // Vérifie si le formulaire est soumis en POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Récupère les données du formulaire
+            $data = [
+                'id' => $_GET['id'],
+                'date' => $_POST['date'],
+                'club' => $_POST['club'],
+                'grille_points' => $_POST['grille_points'],
+                'nature' => $_POST['nature'],
+                'niveau' => $_POST['niveau'],
+                'categorie' => $_POST['categorie'],
+                // Ajoutez d'autres champs du formulaire ici
+            ];
 
+            // Appelle la méthode pour modifier le concours dans le contrôleur
+            $controller->modifierConcours($data);
+
+            // Redirection vers une page de succès après la modification
+            header("Location: ../view/page_success.php");
+            exit();
+        }
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier d'un concours - FFBSQ</title>
+    <title>Modifier un concours - FFBSQ</title>
     <!-- Inclure Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-<h2 class="text-center mb-4">Modification du concours : <?php echo $concoursModif['club_organisateur'];?></h2>
-    <div class="container-fluid mt-5">
-    <form action="modifier_concours.php" method="POST">
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label for="date" class="form-label">Date :</label>
-                    <input type="date" id="date" name="date" class="form-control" value="<?php echo $concoursModif['date_concours']; ?>" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="club" class="form-label">CLUB organisateur :</label>
-                    <input type="text" id="club" name="club" class="form-control" value="<?php echo $concoursModif['club_organisateur']; ?>" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="grille_points" class="form-label">Grille de points :</label>
-                    <select id="grille_points" name="grille_points" class="form-select" value="<?php echo $concoursModif['grille_points']; ?>" required>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                        
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="nature" class="form-label">Nature :</label>
-                    <select id="nature" name="nature" class="form-select" value="<?php echo $concoursModif['nature']; ?>" required>
-                        <option value="formule">Formule</option>
-                        <option value="individuel">Individuel</option>
-                        <option value="doublette">Doublette</option>
-                        <option value="triplette">Triplette</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="niveau" class="form-label">Niveau :</label>
-                    <select id="niveau" name="niveau" class="form-select" value="<?php echo $concoursModif['niveau']; ?>" required>
-                        <option value="departemental">Départemental</option>
-                        <option value="national">National</option>
-                        <option value="international">International</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="categorie" class="form-label">Catégorie :</label>
-                    <select id="categorie" name="categorie" class="form-select" required value="<?php echo $concoursModif['categorie']; ?>">
-                        <option value="senior">Senior</option>
-                        <option value="veteran">Vétéran</option>
-                        <option value="feminin">Feminin</option>
-                        <option value="junior">Junior</option>
-                        <option value="cadet">Cadet</option>
-                        <option value="minime">Minime</option>
-                        <option value="mixte">Mixte</option>
+<div class="container-fluid mt-5">
+    <h2 class="text-center mb-4">Modification du concours : <?php echo $concoursModif['club_organisateur']; ?></h2>
+    <form action="modifier_concours.php?id=<?php echo $_GET['id']; ?>" method="POST">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="date" class="form-label">Date :</label>
+                <input type="date" id="date" name="date" class="form-control" value="<?php echo $concoursModif['date_concours']; ?>" required>
+            </div>
+            <div class="col-md-6">
+                <label for="club" class="form-label">Club organisateur :</label>
+                <input type="text" id="club" name="club" class="form-control" value="<?php echo $concoursModif['club_organisateur']; ?>" required>
+            </div>
+            <div class="col-md-6">
+                <label for="grille_points" class="form-label">Grille de points :</label>
+                <select id="grille_points" name="grille_points" class="form-select" required>
+                    <option value="B" <?php if ($concoursModif['grille_points'] === 'B') echo 'selected'; ?>>B</option>
+                    <option value="C" <?php if ($concoursModif['grille_points'] === 'C') echo 'selected'; ?>>C</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="nature" class="form-label">Nature :</label>
+                <select id="nature" name="nature" class="form-select" required>
+                    <option value="formule" <?php if ($concoursModif['nature'] === 'formule') echo 'selected'; ?>>Formule</option>
+                    <option value="individuel" <?php if ($concoursModif['nature'] === 'individuel') echo 'selected'; ?>>Individuel</option>
+                    <option value="doublette" <?php if ($concoursModif['nature'] === 'doublette') echo 'selected'; ?>>Doublette</option>
+                    <option value="triplette" <?php if ($concoursModif['nature'] === 'triplette') echo 'selected'; ?>>Triplette</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="niveau" class="form-label">Niveau :</label>
+                <select id="niveau" name="niveau" class="form-select" required>
+                    <option value="departemental" <?php if ($concoursModif['niveau'] === 'departemental') echo 'selected'; ?>>Départemental</option>
+                    <option value="national" <?php if ($concoursModif['niveau'] === 'national') echo 'selected'; ?>>National</option>
+                    <option value="international" <?php if ($concoursModif['niveau'] === 'international') echo 'selected'; ?>>International</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="categorie" class="form-label">Catégorie :</label>
+                <select id="categorie" name="categorie" class="form-select" required>
+                    <option value="senior" <?php if ($concoursModif['categorie'] === 'senior') echo 'selected'; ?>>Senior</option>
+                    <option value="veteran" <?php if ($concoursModif['categorie'] === 'veteran') echo 'selected'; ?>>Vétéran</option>
+                    <option value="feminin" <?php if ($concoursModif['categorie'] === 'feminin') echo 'selected'; ?>>Féminin</option>
+                    <option value="junior" <?php if ($concoursModif['categorie'] === 'junior') echo 'selected'; ?>>Junior</option>
+                    <option value="cadet" <?php if ($concoursModif['categorie'] === 'cadet') echo 'selected'; ?>>Cad
+
                     </select>
                 </div>
                 <div class="col-md-6">
