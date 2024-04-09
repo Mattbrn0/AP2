@@ -20,11 +20,11 @@ if (isset($_GET['id'])) {
                 'nature' => $_POST['nature'],
                 'niveau' => $_POST['niveau'],
                 'categorie' => $_POST['categorie'],
-                // Ajoutez d'autres champs du formulaire ici
+                'nombre_equipes' => $_POST['nombre_equipes']
             ];
-
-            // Appelle la méthode pour modifier le concours dans le contrôleur
+            
             $controller->modifierConcours($data);
+            
 
             // Redirection vers une page de succès après la modification
             header("Location: ../view/page_success.php");
@@ -92,16 +92,20 @@ if (isset($_GET['id'])) {
                 </div>
                 <div class="col-md-6">
                     <label for="nombre_equipes" class="form-label">Nombre d'équipes</label>
-                    <input type="number" id="nombre_equipes" name="nombre_equipes" class="form-control" values="">
-                </div>
+                    <select id="nombre_equipes" name="nombre_equipes" class="form-select" required>
+                    <option value="-16" <?php if ($concoursModif['nombre_equipes'] === '-16') echo 'selected'; ?>>Moins de 16</option>
+                    <option value="16" <?php if ($concoursModif['nombre_equipes'] === '16') echo 'selected'; ?>>16</option>
+                    <option value="32" <?php if ($concoursModif['nombre_equipes'] === '32') echo 'selected'; ?>>32</option>
+                    <option value="64" <?php if ($concoursModif['nombre_equipes'] === '64') echo 'selected'; ?>>64</option>
+                    </select></div>
                 <div class="container">
                     <div class="row">
                         <div class="col-12 text-center">
                             <h2>Que souhaitez-vous faire ?</h2>
                             <div class="mt-4">
-                                <button type="submit" class="btn btn-primary w-100 mt-3">Valider</button>
+                                <button type="submit" class="btn btn-primary mt-3">Valider</button>
                                 <br><br>
-                                <button onclick="loadContent('resultats_concours.php')" class="btn btn-warning">saisir un résultat</button>
+                                <button onclick="loadContent('resultats_concours.php?id=<?php echo $_GET['id']; ?>')" class="btn btn-warning">Saisir un résultat</button>
                             </div>
                             <div id="content" class="mt-5">
                                 <!-- Contenu chargé dynamiquement -->

@@ -56,7 +56,7 @@ class LicencesModel {
         }
     }
 
-    public function updateLicencie($idLicencie, $nom, $prenom, $sexe, $dateNaissance, $categorie, $position, $adresse, $ville, $telephone, $email, $nationalite, $classification, $validiteCM, $anneeReprise, $premiereLicence, $club) {
+    public function updateLicencie($idLicencie, $nom, $prenom, $sexe, $dateNaissance, $categorie, $position, $adresse, $ville, $telephone, $email, $nationalite, $classification, $validiteCM, $anneeReprise, $premiereLicence, $numeroaffiliation, $club) {
         $idLicencie = $this->db->real_escape_string($idLicencie);
         $nom = $this->db->real_escape_string($nom);
         $prenom = $this->db->real_escape_string($prenom);
@@ -73,6 +73,7 @@ class LicencesModel {
         $validiteCM = $this->db->real_escape_string($validiteCM);
         $anneeReprise = $this->db->real_escape_string($anneeReprise);
         $premiereLicence = $this->db->real_escape_string($premiereLicence);
+        $numeroaffiliation = $this->db->real_escape_string($numeroaffiliation);
         $club = $this->db->real_escape_string($club);
     
         $sql = "UPDATE licencie SET 
@@ -91,7 +92,8 @@ class LicencesModel {
                 validite_CM = '$validiteCM',
                 annee_reprise = '$anneeReprise',
                 premiere_licence = '$premiereLicence',
-                numeroaffiliation = '$club'
+                numeroaffiliation = '$numeroaffiliation',
+                club = '$club'
                 WHERE numLicencie = '$idLicencie'";
     
         $result = $this->db->query($sql);

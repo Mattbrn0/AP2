@@ -68,23 +68,24 @@
         public function updateLicencie($data) {
             $model = new LicencesModel();
         
-            $idLicencie = $data['idLicencie'];
-            $nom = $data['LicenceNom'];
-            $prenom = $data['LicencePrenom'];
-            $sexe = $data['LicenceSexe'];
-            $dateNaissance = $data['LicenceDateDeNaissance'];
-            $categorie = $data['LicenceCategorie'];
-            $position = $data['LicencePosition'];
-            $adresse = $data['LicenceAdresse'];
-            $ville = $data['LicenceVille'];
-            $telephone = $data['LicenceTelephone'];
-            $email = $data['LicenceEmail'];
-            $nationalite = $data['LicenceNationalite'];
-            $classification = $data['LicenceClassification'];
-            $validiteCM = $data['LicenceCM'];
-            $anneeReprise = $data['AnneeReprise'];
-            $premiereLicence = $data['LicencePremiere'];
-            $club = $data['LicenceClub'];
+            $idLicencie = $data['numlicencie'];
+            $nom = $data['nomlicencie'];
+            $prenom = $data['prenomlicencie'];
+            $sexe = $data['sexelicencie'];
+            $dateNaissance = $data['datedenaissance'];
+            $categorie = $data['categorielicencie'];
+            $position = $data['positionlicencie'];
+            $adresse = $data['adr_licencie'];
+            $ville = $data['adr_ville_licencie'];
+            $telephone = $data['tel_licencie'];
+            $email = $data['mail_licencie'];
+            $nationalite = $data['nationalite_licencie'];
+            $classification = $data['classification_licencie'];
+            $validiteCM = $data['validite_CM'];
+            $anneeReprise = $data['annee_reprise'];
+            $premiereLicence = $data['premiere_licence'];
+            $numeroaffiliation = $data['numeroaffiliation'];
+            $club = $data['club_licence'];
         
             $result = $model->updateLicencie(
                 $idLicencie,
@@ -103,6 +104,7 @@
                 $validiteCM,
                 $anneeReprise,
                 $premiereLicence,
+                $numeroaffiliation,
                 $club
             );
         

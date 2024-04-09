@@ -9,6 +9,34 @@ if(isset($_GET['id'])) {
     $licencie = $controller->getLicencieById($_GET['id']);
 
     if($licencie) {
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $data = [
+                'id' => $_GET['id'],
+                'nomlicencie' => $_POST['LicenceNom'],
+                'prenomlicencie' => $_POST['LicencePrenom'],
+                'sexelicencie' => $_POST['LicenceSexe'],
+                'datedenaissance' => $_POST['LicenceDateDeNaissance'],
+                'categorielicencie' => $_POST['LicenceCategorie'],
+                'positionlicencie' => $_POST['LicencePosition'],
+                'adr_licencie' => $_POST['LicenceAdresse'],
+                'adr_ville_licencie' => $_POST['LicenceVille'],
+                'tel_licencie' => $_POST['LicenceTelephone'],
+                'mail_licencie' => $_POST['LicenceEmail'],
+                'nationalite_licencie' => $_POST['LicenceNationalite'],
+                'classification_licencie' => $_POST['LicenceClassification'],
+                'validite_CM' => $_POST['LicenceCM'],
+                'annee_reprise' => $_POST['AnneeReprise'],
+                'premiere_licence' => $_POST['LicencePremiere'],
+                'numeroaffiliation' => $_POST['numeroaffiliation'],
+                'club_licence' => $_POST['LicenceClub']
+            ];
+            $controller->updateLicencie($data);
+
+            header('Location: ../view/page_success.php');
+            exit();
+        }
 ?>
 <!DOCTYPE html>
 <html lang="fr">

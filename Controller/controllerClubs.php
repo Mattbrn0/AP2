@@ -54,5 +54,16 @@ class ClubsController {
         return $club['designationclub'];
     }
     
+    public function SupprimerClubs($numeroAffiliation) {
+            $model = new ClubsModel();
+            $success = $model->SupprimerClubs($numeroAffiliation);
+            
+            if ($success) {
+                header("Location: ../View/clubs/visualiser_clubs.php");
+                exit();
+            } else {
+                echo "La suppression du club a échoué.";
+            }
+        }
 }
 ?>

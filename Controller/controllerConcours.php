@@ -15,7 +15,8 @@ class ConcoursController {
                 $_POST['grille_points'],
                 $_POST['nature'],
                 $_POST['niveau'],
-                $_POST['categorie']
+                $_POST['categorie'],
+                $_POST['nombre_equipe']
             );
 
             if ($result) {
@@ -36,7 +37,8 @@ class ConcoursController {
         $grille_points = $data['grille_points'];
         $nature = $data['nature'];
         $niveau = $data['niveau'];
-        $categorie = $data['categorie'];        
+        $categorie = $data['categorie']; 
+        $nombre_equipes = $data['nombre_equipes'];       
     
         $result = $model->modifierConcours(
             $id,
@@ -46,7 +48,7 @@ class ConcoursController {
             $nature,
             $niveau,
             $categorie,
-           
+            $nombre_equipes,
         );
     
         return $result;
@@ -63,5 +65,19 @@ class ConcoursController {
 
         return $result;
     }
+    public function enregistrerResultats() {
+        $club_organisateur = $_POST['club_organisateur'];
+        $categorie = $_POST['categorie'];
+        $nombre_equipes = $_POST['nombre_equipes'];
+        
+        $model = new ConcoursModel();
+
+        // Calculer les points pour le gagnant et le finaliste
+        $points_gagnant = $model->calculerPoints($categorie, $nombre_equipes);
+        $points_finaliste = $model->calculerPoints($categorie, $nombre_equipes);
+        $points_demifinaliste = $model->calculerPoints($categorie, $nombre_equipes);
+
+    }
+
 }
 

@@ -43,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <option value="departemental">Départemental</option>
                         <option value="national">National</option>
                         <option value="international">International</option>
-                        <!-- Autres options de niveau -->
                     </select>
                 </div>
                 <div class="col-12">
@@ -69,6 +68,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <option value="cadet">Cadet</option>
                         <option value="minime">Minime</option>
                         <option value="mixte">Mixte</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="niveau" class="form-label">Nombre d'équipes :</label>
+                    <select id="nombre_equipe" name="nombre_equipe" class="form-select" required>
+                        <option value="-16">moins de 16</option>
+                        <option value="16">16</option>
+                        <option value="32">32</option>
+                        <option value="64">64</option>
                     </select>
                 </div>
                 <div class="col-12">

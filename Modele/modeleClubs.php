@@ -56,5 +56,16 @@ class ClubsModel {
         $row = $result->fetch_assoc();
         return $row['designationclub'];
     }
+
+    public function SupprimerClubs($numeroAffiliation) {
+        $numeroAffiliation = $this->db->real_escape_string($numeroAffiliation);
+        $sql = "DELETE FROM club WHERE numeroaffiliation = '$numeroAffiliation'";
+        
+        if ($this->db->query($sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>

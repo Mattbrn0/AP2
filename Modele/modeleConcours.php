@@ -8,7 +8,7 @@ class ConcoursModel {
         $this->db = DAOConnect::getInstance();
     }
 
-    public function ajouterConcours($date, $club, $commentaire, $grillePoints, $nature, $niveau, $categorie) {
+    public function ajouterConcours($date, $club, $commentaire, $grillePoints, $nature, $niveau, $categorie, $nombre_equipes) {
         $date = $this->db->real_escape_string($date);
         $club = $this->db->real_escape_string($club);
         $commentaire = $this->db->real_escape_string($commentaire);
@@ -16,9 +16,10 @@ class ConcoursModel {
         $nature = $this->db->real_escape_string($nature);
         $niveau = $this->db->real_escape_string($niveau);
         $categorie = $this->db->real_escape_string($categorie);
+        $nombre_equipes = $this->db->real_escape_string($nombre_equipes);
 
-        $sql = "INSERT INTO concours (date_concours, club_organisateur, commentaire, grille_points, nature, niveau, categorie) 
-                VALUES ('$date', '$club', '$commentaire', '$grillePoints', '$nature', '$niveau', '$categorie')";
+        $sql = "INSERT INTO concours (date_concours, club_organisateur, commentaire, grille_points, nature, niveau, categorie, nombre_equipes) 
+                VALUES ('$date', '$club', '$commentaire', '$grillePoints', '$nature', '$niveau', '$categorie', '$nombre_equipes')";
 
         $result = $this->db->query($sql);
 
@@ -31,7 +32,7 @@ class ConcoursModel {
         return $result;
     }
 
-    public function modifierConcours($id, $date, $club, $grille_points, $nature, $niveau, $categorie) {
+    public function modifierConcours($id, $date, $club, $grille_points, $nature, $niveau, $categorie, $nombre_equipes) {
         $id = $this->db->real_escape_string($id);
         $date = $this->db->real_escape_string($date);
         $club = $this->db->real_escape_string($club);
@@ -39,6 +40,7 @@ class ConcoursModel {
         $nature = $this->db->real_escape_string($nature);
         $niveau = $this->db->real_escape_string($niveau);
         $categorie = $this->db->real_escape_string($categorie);
+        $nombre_equipes = $this->db->real_escape_string($nombre_equipes);
 
         $sql = "UPDATE concours SET 
                date_concours = '$date', 
@@ -46,7 +48,8 @@ class ConcoursModel {
                grille_points = '$grille_points', 
                nature = '$nature', 
                niveau = '$niveau', 
-               categorie = '$categorie' 
+               categorie = '$categorie',
+               nombre_equipes = '$nombre_equipes'
                WHERE id = '$id'";
 
         if ($this->db->query($sql)) {
@@ -68,5 +71,74 @@ class ConcoursModel {
             return false;
         }
     }
+
+    function calculerPoints($categorie, $nombre_equipes, $position) {
+        if ($categorie == "B") {
+            if ($nombre_equipes > 64) {
+                if ($position == "gagnant") {
+                    return 8;
+                } elseif ($position == "finaliste") {
+                    return 6;
+                } elseif ($position == "demi-finalistes") {
+                    return 4;
+                }
+            } elseif ($nombre_equipes > 32) {
+                if ($position == "gagnant") {
+                    return 6;
+                } elseif ($position == "finaliste") {
+                    return 4;
+                } elseif ($position == "demi-finalistes") {
+                    return 2;
+                }
+            } elseif ($nombre_equipes > 16) {
+                if ($position == "gagnant") {
+                    return 4;
+                } elseif ($position == "finaliste") {
+                    return 3;
+                }
+            } else {
+                if ($position == "gagnant") {
+                    return 2;
+                } elseif ($position == "finaliste") {
+                    return 1;
+                }
+            }
+        } elseif ($categorie == "C") {
+            if ($nombre_equipes > 64) {
+                if ($position == "gagnant") {
+                    return 5;
+                } elseif ($position == "finaliste") {
+                    return 4;
+                } elseif ($position == "demi-finalistes") {
+                    return 3;
+                }
+            } elseif ($nombre_equipes > 32) {
+                if ($position == "gagnant") {
+                    return 4;
+                } elseif ($position == "finaliste") {
+                    return 3;
+                } elseif ($position == "demi-finalistes") {
+                    return 2;
+                }
+            } elseif ($nombre_equipes > 16) {
+                if ($position == "gagnant") {
+                    return 3;
+                } elseif ($position == "finaliste") {
+                    return 2;
+                }
+            } else {
+                if ($position == "gagnant") {
+                    return 2;
+                } elseif ($position == "finaliste") {
+                    return 1;
+                }
+            }
+        }
+    
+        return 0; // Valeur par défaut si aucun cas ne correspond
+    }
+    
+
+    
 }
 ?>
