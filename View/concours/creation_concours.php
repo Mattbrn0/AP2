@@ -28,7 +28,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="col-md-6">
                     <label for="club" class="form-label">CLUB organisateur :</label>
-                    <input type="text" id="club" name="club" class="form-control" required>
+                    <select id="club" name="club" class="form-select" required>
+                        <option value="">Sélectionner un club</option>
+                        <?php
+                        $controller = new ConcoursController();
+                        $result = $controller->getConcours();
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<option value="' . $row['id'] . '">' . $row['id'] . ' - ' . $row['club_organisateur'] . '</option>';
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="col-md-6">
                     <label for="grille_points" class="form-label">Grille de points :</label>
