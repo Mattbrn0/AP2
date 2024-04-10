@@ -137,8 +137,6 @@ class ConcoursModel {
     
         return 0; // Valeur par défaut si aucun cas ne correspond
     }
-    
 
-    
 }
 ?>
