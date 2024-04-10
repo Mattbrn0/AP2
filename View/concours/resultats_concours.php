@@ -34,6 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         }
                         ?>
                     </select>
+            
+            
         </div>
     </div>
     <input type="submit" value="Valider" class="btn btn-primary mt-3">

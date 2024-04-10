@@ -1,7 +1,15 @@
+
 <?php
+error_reporting(E_ALL); ini_set('display_errors', 1);
+
 // Inclure la bibliothèque PHP QR Code
 require_once (realpath(dirname(__FILE__) . '/../../Dependecies/phpqrcode/qrlib.php'));
 require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerLicences.php'));
+
+// Fonction de génération de token
+function generateToken() {
+    return bin2hex(random_bytes(16)); // Génère un token hexadécimal de 16 octets
+}
 
 // Vérifier si l'ID du licencié est fourni dans l'URL
 if(isset($_GET['id'])) {
@@ -16,33 +24,23 @@ if(isset($_GET['id'])) {
 
     // Vérifier si le licencié existe
     if($licencie) {
+        // Générer un token
+        $token = generateToken();
+
+        // Mettre à jour le champ "token" dans la base de données
+        $controller->updateToken($idLicencie, $token);
+
         // Créer un tableau associatif avec les données du licencié
         $data = array(
             'numero_licence' => $licencie['numlicencie'],
-            'nom' => $licencie['nomlicencie'],
-            'prenom' => $licencie['prenomlicencie'],
-            'sexe' => $licencie['sexelicencie'],
-            'date_naissance' => $licencie['datedenaissance'],
-            'categorie' => $licencie['categorielicencie'],
-            'position' => $licencie['positionlicencie'],
-            'adresse' => $licencie['adr_licencie'],
-            'ville' => $licencie['adr_ville_licencie'],
-            'telephone' => $licencie['tel_licencie'],
-            'email' => $licencie['mail_licencie'],
-            'nationalite' => $licencie['nationalite_licencie'],
-            'classification' => $licencie['classification_licencie'],
-            'validite_CM' => $licencie['validite_CM'],
-            'annee_reprise' => $licencie['annee_reprise'],
-            'premiere_licence' => $licencie['premiere_licence'],
-            'club' => $licencie['numeroaffiliation']
-
+            'token' => $token // Ajouter le token au tableau de données
         );
 
         // Convertir le tableau en JSON
         $jsonData = json_encode($data);
 
         // Chemin où sauvegarder le QR code généré
-        $cheminQR = '../../assets/qrcode/';
+        $cheminQR = '../../ffbsq/assets/qrcode/';
 
         // Nom du fichier QR code (numéro de licence du licencié)
         $nomFichierQR = $licencie['numlicencie'] . "-" . $licencie['nomlicencie'] . "-" . $licencie['prenomlicencie'] . ".png";

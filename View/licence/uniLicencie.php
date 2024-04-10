@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL); ini_set('display_errors', 1);
 require_once (realpath(dirname(__FILE__) . '/../../Controller/controllerLicences.php'));
 
 // Vérifie si l'ID du licencié est présent dans les données GET
@@ -86,7 +87,7 @@ if(isset($_GET['id'])) {
             </div>
             <div class="mb-3">
                 <label for="LicencePremiere" class="form-label">Première licence</label>
-                <input type="date" class="form-control" id="LicencePremiere" name="LicencePremiere" value="<?php echo $licencie['premiere_licence']; ?>">
+                <input type="text" class="form-control" id="LicencePremiere" name="LicencePremiere" value="<?php echo $licencie['premiere_licence']; ?>">
             </div>
             <div class="mb-3">
                 <label for="LicenceClub" class="form-label">Club</label>
