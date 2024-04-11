@@ -20,12 +20,19 @@ class ConcoursController {
             );
 
             if ($result) {
-                header("Location: ../view/page_success.php");
+                header(realpath(__DIR__ . '/../../concours/concours.php'));
                 exit();
             } else {
                 echo "Erreur lors de l'insertion : " . $model->db->error;
             }
         }
+    }
+    
+    public function getResultatsConcours($concoursId) {
+        $model = new ConcoursModel();
+        $resultats = $model->getResultatsConcours($concoursId);
+
+        return $resultats;
     }
 
     public function modifierConcours($data) {
@@ -65,7 +72,7 @@ class ConcoursController {
 
         return $result;
     }
-    public function enregistrerResultats() {
+    public function enregistrerResultats($id_concours, $vainqueurs, $finalistes, $demi_finalistes) {
         $club_organisateur = $_POST['club_organisateur'];
         $categorie = $_POST['categorie'];
         $nombre_equipes = $_POST['nombre_equipes'];
@@ -76,8 +83,7 @@ class ConcoursController {
         $points_gagnant = $model->calculerPoints($categorie, $nombre_equipes);
         $points_finaliste = $model->calculerPoints($categorie, $nombre_equipes);
         $points_demifinaliste = $model->calculerPoints($categorie, $nombre_equipes);
-
+        
     }
 
 }
-

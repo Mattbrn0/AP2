@@ -131,7 +131,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if($result) {
             // Redirection vers une page de succès
-            header("Location: /view/licence/licences.php");
+            header("Location: ../licence/licences.php");
             exit();
         } else {
             echo "Erreur lors de la mise à jour des informations du licencié.";

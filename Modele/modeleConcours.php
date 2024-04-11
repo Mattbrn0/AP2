@@ -72,6 +72,50 @@ class ConcoursModel {
         }
     }
 
+    public function getResultatsConcours($concoursId) {
+        $concoursId = $this->db->real_escape_string($concoursId);
+    
+        $sql = "SELECT * FROM resultat WHERE id_concours = '$concoursId'";
+        $result = $this->db->query($sql);
+    
+        $vainqueurs = [];
+        $finalistes = [];
+    
+        while ($row = $result->fetch_assoc()) {
+            if ($row['gagnant'] != null) {
+                $vainqueurDetails = $this->getParticipantDetails($row['gagnant']);
+                if ($vainqueurDetails !== null) {
+                    $vainqueurs[] = $vainqueurDetails;
+                }
+            }
+    
+            if ($row['finaliste'] != null) {
+                $finalisteDetails = $this->getParticipantDetails($row['finaliste']);
+                if ($finalisteDetails !== null) {
+                    $finalistes[] = $finalisteDetails;
+                }
+            }
+        }
+    
+        return ['vainqueurs' => $vainqueurs, 'finalistes' => $finalistes];
+    }
+    
+    
+    private function getParticipantDetails($participantId) {
+        $participantId = $this->db->real_escape_string($participantId);
+    
+        $sql = "SELECT * FROM licencie WHERE numlicencie = '$participantId'";
+        $result = $this->db->query($sql);
+    
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        } else {
+            return null;
+        }
+    }
+    
+    
+
     function calculerPoints($categorie, $nombre_equipes, $position) {
         if ($categorie == "B") {
             if ($nombre_equipes > 64) {
@@ -137,6 +181,6 @@ class ConcoursModel {
     
         return 0; // Valeur par défaut si aucun cas ne correspond
     }
-
+    
 }
 ?>

@@ -16,7 +16,7 @@ class LicencesController
             );
 
             if ($result) {
-                header("Location: /view/licence/licences.php");
+                header("Location: ../licence/licences.php");
                 exit();
             } else {
                 echo "Erreur lors de l'insertion : " . $model->db->error;
@@ -36,7 +36,7 @@ class LicencesController
             );
 
             if ($result) {
-                header("Location: /view/licence/licences.php");
+                header("Location: ../licence/licences.php");
                 exit();
             } else {
                 echo "Erreur lors de la mise à jour : " . $model->db->error;
@@ -130,7 +130,7 @@ class LicencesController
         return $result;
     }
 
-    public function searchLicencie($searchNom, $searchPrenom, $searchNumLicence) {
+    public function searchLicencie() {
         session_start();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

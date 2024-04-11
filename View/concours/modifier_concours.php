@@ -25,9 +25,6 @@ if (isset($_GET['id'])) {
             
             $controller->modifierConcours($data);
             
-
-            // Redirection vers une page de succès après la modification
-            header("Location: ../view/page_success.php");
             exit();
         }
 ?>
@@ -86,18 +83,12 @@ if (isset($_GET['id'])) {
                     <option value="veteran" <?php if ($concoursModif['categorie'] === 'veteran') echo 'selected'; ?>>Vétéran</option>
                     <option value="feminin" <?php if ($concoursModif['categorie'] === 'feminin') echo 'selected'; ?>>Féminin</option>
                     <option value="junior" <?php if ($concoursModif['categorie'] === 'junior') echo 'selected'; ?>>Junior</option>
-                    <option value="cadet" <?php if ($concoursModif['categorie'] === 'cadet') echo 'selected'; ?>>Cad
-
+                    <option value="cadet" <?php if ($concoursModif['categorie'] === 'cadet') echo 'selected'; ?>>Cadet</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label for="nombre_equipes" class="form-label">Nombre d'équipes</label>
-                    <select id="nombre_equipes" name="nombre_equipes" class="form-select" required>
-                    <option value="-16" <?php if ($concoursModif['nombre_equipes'] === '-16') echo 'selected'; ?>>Moins de 16</option>
-                    <option value="16" <?php if ($concoursModif['nombre_equipes'] === '16') echo 'selected'; ?>>16</option>
-                    <option value="32" <?php if ($concoursModif['nombre_equipes'] === '32') echo 'selected'; ?>>32</option>
-                    <option value="64" <?php if ($concoursModif['nombre_equipes'] === '64') echo 'selected'; ?>>64</option>
-                    </select></div>
+                    <input type="number" id="nombre_equipes" name="nombre_equipes" class="form-control" value="<?php echo $concoursModif['nombre_equipes']; ?>" required>   
                 <div class="container">
                     <div class="row">
                         <div class="col-12 text-center">
@@ -105,7 +96,6 @@ if (isset($_GET['id'])) {
                             <div class="mt-4">
                                 <button type="submit" class="btn btn-primary mt-3">Valider</button>
                                 <br><br>
-                                <button onclick="loadContent('resultats_concours.php?id=<?php echo $_GET['id']; ?>')" class="btn btn-warning">Saisir un résultat</button>
                             </div>
                             <div id="content" class="mt-5">
                                 <!-- Contenu chargé dynamiquement -->
@@ -115,6 +105,8 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
         </form>
+        <a href="traitement.php?id_concours=<?php echo $_GET['id']; ?>" class="btn btn-warning">Saisir des résultats</a>
+
 <?php
  } else {
     echo "concours non trouvé.";

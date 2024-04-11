@@ -24,7 +24,7 @@ class ClubsController {
             );
 
             if ($result) {
-                header("Location: ../view/page_success.php");
+                header(realpath(__DIR__ . '/../../clubs/clubs.php'));
                 exit();
             } else {
                 echo "Erreur lors de l'insertion : " . $model->db->error;
@@ -54,16 +54,5 @@ class ClubsController {
         return $club['designationclub'];
     }
     
-    public function SupprimerClubs($numeroAffiliation) {
-            $model = new ClubsModel();
-            $success = $model->SupprimerClubs($numeroAffiliation);
-            
-            if ($success) {
-                header("Location: ../View/clubs/visualiser_clubs.php");
-                exit();
-            } else {
-                echo "La suppression du club a échoué.";
-            }
-        }
 }
 ?>
