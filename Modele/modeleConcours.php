@@ -181,6 +181,64 @@ class ConcoursModel {
     
         return 0; // Valeur par défaut si aucun cas ne correspond
     }
+
+    public function getLicenciesByConcours($concoursId) {
+        $concoursId = $this->db->real_escape_string($concoursId);
+
+        $sql = "SELECT * FROM gagnant_concours WHERE id_concours = '$concoursId'";
+        $result = $this->db->query($sql);
+
+        $licencies = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $licencies[] = $row;
+        }
+
+        return $licencies;
+    }
     
+    public function getNombrePointsLicencie($concoursId) {
+        $concoursId = $this->db->real_escape_string($concoursId);
+    
+        $sql = "SELECT * FROM gagnant_concours WHERE id_concours = '$concoursId'";
+        $result = $this->db->query($sql);
+    
+        $points = [];
+    
+        while ($row = $result->fetch_assoc()) {
+            $points[] = $row;
+        }
+    
+        return $points;
+    }
+
+    public function getNombrePoints($concoursId, $licencieId) {
+        $concoursId = $this->db->real_escape_string($concoursId);
+        $licencieId = $this->db->real_escape_string($licencieId);
+
+        $sql = "SELECT * FROM gagnant_concours WHERE id_concours = '$concoursId' AND id_licencie = '$licencieId'";
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        } else {
+            return false;
+        }
+    }
+
+    public function saveResult($concoursId, $licencieId, $nature, $type, $points) {
+        $concoursId = $this->db->real_escape_string($concoursId);
+        $licencieId = $this->db->real_escape_string($licencieId);
+        $nature = $this->db->real_escape_string($nature);
+        $type = $this->db->real_escape_string($type);
+        $points = $this->db->real_escape_string($points);
+
+        $sql = "INSERT INTO gagnant_concours (id_concours, id_licencie, nature, statut, nombre_points) 
+                VALUES ('$concoursId', '$licencieId', '$nature', '$type', '$points')";
+
+        $result = $this->db->query($sql);
+
+        return $result;
+    }
 }
 ?>
